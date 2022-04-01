@@ -79,7 +79,7 @@
 
         <hook type="after_prepare" src="hooks/after_prepare.js"/>
 
-        <framework src="no.nordicsemi.android:dfu:1.1.1"/>
+        <framework src="no.nordicsemi.android:dfu:1.11.1"/>
 
         <source-file src="src/android/BLECentralPlugin.java"
             target-dir="src/com/megster/cordova/ble/central"/>
