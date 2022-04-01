@@ -837,6 +837,7 @@ public class Peripheral extends BluetoothGattCallback {
         dfuCallback = callbackContext;
 
         final DfuServiceInitiator starter = new DfuServiceInitiator(device.getAddress())
+                .setForeground(false)
                 .setDeviceName(device.getName())
                 .setKeepBond(false)
                 .setForceDfu(false)
@@ -844,7 +845,10 @@ public class Peripheral extends BluetoothGattCallback {
                 .setPacketsReceiptNotificationsValue(10)
                 .setUnsafeExperimentalButtonlessServiceInSecureDfuEnabled(true)
                 .setDisableNotification(true);
-
+        // Android 8.1 and greater require the notification channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            starter.createDfuNotificationChannel(currentActivity.getApplicationContext());
+        }
         // set the ZIP and start the process
         starter.setZip(uri);
         starter.start(currentActivity, DfuService.class);
